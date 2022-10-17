@@ -1,8 +1,9 @@
 import axios from "axios";
 
-const api = axios.create({
+const Api = axios.create({
     baseURL : "https://kenziehub.herokuapp.com",
-    timeout: 5000
+    timeout: 5000,
+    token: localStorage.getItem("@Kenzie:token")
 })
 
-export default api
+export default Api

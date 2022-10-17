@@ -1,17 +1,18 @@
-import {Routes, Route} from 'react-router-dom'
-import Login from '../Pages/Login';
-
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import Login from "../Pages/Login";
+import Register from "../Pages/Register";
+import Dashboard from "../Pages/Dashboard";
 
 const RoutesMain = () => {
-    return (
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/sessions" element={<Login/>} />
+        <Route path="/users" element={<Register/>} />
+        <Route path="/profile" element={<Dashboard/>} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-    <Routes>
-    <Route path='/Login' element={<Login/>}/>
-    {/* <Route path='/Register' element={}/>
-    <Route path='/Dashboard' element={}/> */}
-    </Routes>
-    )
-}
-
-
-export default RoutesMain
+export default RoutesMain;
