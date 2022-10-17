@@ -14,9 +14,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import image from "../../Assets/LogoHub.svg"
+import { useState } from "react";
 
 
 const Login = () => {
+
+const [token,setToken] = useState("")
+
+
   const schema = yup.object({
     email: yup
       .string()
@@ -41,10 +46,12 @@ const Login = () => {
       .then((response) => response.token)
       .then((response) => {
         localStorage.setItem("@Kenzie:token", response);
+        setToken(response)
         return response;
       })
       .catch((err) => console.log(err));
   }
+
 
   const navigate = useNavigate();
   const submitLogin = () => {
