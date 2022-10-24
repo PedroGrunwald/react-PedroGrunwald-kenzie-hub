@@ -1,25 +1,24 @@
 import styled from "styled-components";
 
+
+
 export const Main = styled.main`
   width: 100vw;
   height: 100vh;
   background: #121214;
 `
-
-
-
-
 export const Header = styled.header`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 2rem;
 `;
 
 export const Title = styled.h1`
   color: #ff577f;
 `;
 
-export const Button = styled.button`
+export const Buttton = styled.button`
 display: flex;
 flex-direction: row;
 justify-content: center;
@@ -44,6 +43,9 @@ display: flex;
 flex-direction: row;
 justify-content: space-between;
 align-items: center;
+padding: 2rem;
+border-bottom: 1px grey solid;
+border-top: 1px grey solid;
 `
 
 export const Name = styled.h1`
@@ -53,15 +55,23 @@ font-weight: 700;
 font-size: 18px;
 line-height: 28px;
 color: #F8F9FA;
-
 `
 
-export const Paragraphy = styled.p`
+export const H3 = styled.h3`
+color: #F8F9FA;
 font-family: 'Inter';
 font-style: normal;
-font-weight: 400;
+font-weight: 600;
 font-size: 16px;
-line-height: 24px;
-color: #FFFFFF;
+line-height: 18px;
 `
 
+export const ContainerUL = styled.ul`
+display: flex;
+flex-direction: column;
+background-color:#212529;
+margin: 2rem;
+padding: 2rem;
+gap:1rem;
+
+`

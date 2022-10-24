@@ -9,17 +9,19 @@ import {
   Paragraph,
   ButtonRegister,
 } from "./style";
-import Api from "../../Services/api";
+
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import image from "../../Assets/LogoHub.svg"
-import { useState } from "react";
+import { useContext,  } from "react";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 
 const Login = () => {
 
-const [token,setToken] = useState("")
+
+const {submitUser} = useContext(AuthContext)
 
 
   const schema = yup.object({
@@ -40,19 +42,7 @@ const [token,setToken] = useState("")
     resolver: yupResolver(schema),
   });
 
-  function submitUser(data) {
-    Api.post("/sessions ", data)
-      .then((response) => response.data)
-      .then((response) => response.token)
-      .then((response) => {
-        localStorage.setItem("@Kenzie:token", response);
-        setToken(response)
-        return response;
-      })
-      .catch((err) => console.log(err));
-  }
-
-
+ 
   const navigate = useNavigate();
   const submitLogin = () => {
     console.log("fora do timeout");

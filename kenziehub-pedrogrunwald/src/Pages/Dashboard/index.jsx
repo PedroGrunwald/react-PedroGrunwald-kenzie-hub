@@ -1,32 +1,95 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Button, Modal } from "antd";
 import { useNavigate } from "react-router-dom";
-import {Main, Header, Title, Button,ContainerMain,Name,Paragraphy } from "./style";
+import Card from "../../Components/Card";
+import { AuthContext } from "../../Contexts/AuthContext";
+import { Main, Header, Title, Buttton, ContainerMain, Name, H3,ContainerUL } from "./style";
+ import { useForm } from "react-hook-form";
 
 const Dashboard = () => {
 
-const navigate = useNavigate()
-const Logout = () =>{
-    setTimeout(() =>{
-        navigate("/sessions")
-    })
-}
+  const {
+    register,
+    handleSubmit,
+  } = useForm();
 
+  const { name, technology, SetTechno,AdTech} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const Logout = () => {
+    setTimeout(() => {
+      navigate("/sessions");
+    });
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    SetTechno();
+  }, []);
 
   return (
     <Main>
+      {console.log({ name, technology, SetTechno })}
       <Header>
         <Title>Kenzie hub</Title>
-        <Button onClick={() => Logout()}>Sair</Button>
+        <Button type="primary" onClick={showModal}>
+          Open Modal
+        </Button>
+        <Buttton onClick={() => Logout()}>Sair</Buttton>
       </Header>
-        <ContainerMain>
-          <Name>BEM VINDO SAMUEL LEAO</Name>
-        </ContainerMain>
-      <main>
-        <Paragraphy>Que pena! Estamos em desenvolvimento</Paragraphy>
-        <Paragraphy>Nossa aplicação está em desenvolvimento, em breve teremos novidades</Paragraphy>
-      </main>
+      <ContainerMain>
+        <Name>ola {name} </Name>
+      </ContainerMain>
+      <div>
+        <ContainerUL>
+          {technology.length ? (
+            technology.map((technology, index) => {
+              return (
+                <Card
+                  techId={technology.id}
+                  key={index}
+                  nameTechnology={technology.title}
+                  statusTechnology={technology.status}
+                />
+              );
+            })
+          ) : (
+            <>
+              <H3>Tecnologias</H3>
+            </>
+          )}
+        </ContainerUL>
+      </div>
+      <Modal title="Cadastrar Tecnologia" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+
+        <form onSubmit={handleSubmit(AdTech)}>
+            <p>Nome</p>
+            <input type="text" {...register("title")} />
+            <p>selecionar tecnologia</p>
+            <select {...register("status")} >
+              <option value="Iniciante">Iniciante</option>
+              <option value="Intermediario">Intermediario</option>
+              <option value="Avançado">Avançado</option>
+            </select>
+            <button type="submit">Cadastrar</button>
+        </form>
+      </Modal>
     </Main>
   );
 };
 
 export default Dashboard;
+
+

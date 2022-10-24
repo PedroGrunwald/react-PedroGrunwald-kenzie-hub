@@ -3,10 +3,13 @@ import { Forms, H2, Paragraphy, Input, Select, BtnRegister } from "./style";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Api from "../../Services/api";
+import { useContext } from "react";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 const Form = () => {
+
     const navigate = useNavigate();
+    const {registerUser} = useContext(AuthContext)
 
     const SubmitUser = () =>{
       setTimeout(()=>{
@@ -50,11 +53,7 @@ const Form = () => {
       resolver: yupResolver(schema),
     });
 
-    function registerUser(data) {
-      Api.post("/users", data)
-        .then((response) => console.log(response))
-        .catch((err) => console.log(err));
-    }
+   
 
     return (
       <Forms onSubmit={handleSubmit(registerUser)}>

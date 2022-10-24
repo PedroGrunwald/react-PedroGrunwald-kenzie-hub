@@ -6,4 +6,20 @@ const Api = axios.create({
     token: localStorage.getItem("@Kenzie:token")
 })
 
+Api.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem("@Kenzie:token");
+
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        return config;
+    },
+
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
 export default Api
