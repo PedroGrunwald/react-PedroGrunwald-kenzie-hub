@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Main = styled.main`
@@ -60,7 +61,7 @@ border: 1.2182px solid #F8F9FA;
 border-radius: 4px;
 `
 
-export const ButtonEnter = styled.button`
+export const ButtonEnter = styled.div`
 box-sizing: border-box;
 display: flex;
 flex-direction: row;
@@ -74,6 +75,12 @@ background: #FF577F;
 border: 1.2182px solid #FF577F;
 border-radius: 4.06066px;
 `
+
+export const LinkLogin = styled(Link)`
+text-decoration: none;
+color: black;
+`
+
 export const Paragraph = styled.p`
 font-family: 'Inter';
 font-style: normal;

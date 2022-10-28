@@ -9,6 +9,8 @@ const RoutesMain = () => {
       <Routes>
         <Route path="/sessions" element={<Login/>} />
         <Route path="/users" element={<Register/>} />
+
+        
         <Route path="/profile" element={<Dashboard/>} />
         <Route path="*" element={<Navigate to ='/sessions'/>}/>
       </Routes>

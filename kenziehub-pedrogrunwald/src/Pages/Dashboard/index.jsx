@@ -13,7 +13,7 @@ const Dashboard = () => {
     handleSubmit,
   } = useForm();
 
-  const { name, technology, SetTechno,AdTech} = useContext(AuthContext);
+  const { name, technology, setTech,addTech} = useContext(AuthContext);
   const navigate = useNavigate();
   const Logout = () => {
     setTimeout(() => {
@@ -35,13 +35,12 @@ const Dashboard = () => {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    SetTechno();
-  }, []);
+  // useEffect(() => {
+  //   setTech();
+  // },[]);
 
   return (
     <Main>
-      {console.log({ name, technology, SetTechno })}
       <Header>
         <Title>Kenzie hub</Title>
         <Button type="primary" onClick={showModal}>
@@ -74,7 +73,7 @@ const Dashboard = () => {
       </div>
       <Modal title="Cadastrar Tecnologia" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
 
-        <form onSubmit={handleSubmit(AdTech)}>
+        <form onSubmit={handleSubmit((data)=> addTech(data))}>
             <p>Nome</p>
             <input type="text" {...register("title")} />
             <p>selecionar tecnologia</p>
