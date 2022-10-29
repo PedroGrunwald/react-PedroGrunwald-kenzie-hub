@@ -1,8 +1,8 @@
 import React from "react";
 import Form from "../../Components/Form";
 import image from "../../Assets/LogoHub.svg";
-import { Main, Container, Title, Button } from "./style";
-import { useNavigate } from "react-router-dom";
+import { Main, Container, Title, ContainerLink,LinkVoltar} from "./style";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Register = () => {
@@ -17,9 +17,11 @@ const Register = () => {
       <Main>
         <Container>
           <Title src={image} />
-          <Button type="submit" onClick={() => goLogin()}>
-            Voltar
-          </Button>
+          <ContainerLink>
+            <LinkVoltar to={"/sessions"}>
+              Voltar
+            </LinkVoltar>
+          </ContainerLink>
         </Container>
         <Form />
       </Main>

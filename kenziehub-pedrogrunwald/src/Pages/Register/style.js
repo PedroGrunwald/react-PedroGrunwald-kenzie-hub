@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Main = styled.main`
@@ -23,7 +24,7 @@ export const Title = styled.img`
   height: 25px;
 `;
 
-export const Button = styled.button`
+export const ContainerLink = styled.div`
 
   font-family: "Inter";
   font-style: normal;
@@ -35,3 +36,8 @@ export const Button = styled.button`
   background-color: gray;
 border-radius: 5px;
 `;
+
+export const LinkVoltar = styled(Link)`
+text-decoration: none;
+color: black;
+`

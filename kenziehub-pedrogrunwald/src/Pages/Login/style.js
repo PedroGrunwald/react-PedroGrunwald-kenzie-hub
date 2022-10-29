@@ -61,7 +61,7 @@ border: 1.2182px solid #F8F9FA;
 border-radius: 4px;
 `
 
-export const ButtonEnter = styled.div`
+export const ButtonEnter = styled.button`
 box-sizing: border-box;
 display: flex;
 flex-direction: row;

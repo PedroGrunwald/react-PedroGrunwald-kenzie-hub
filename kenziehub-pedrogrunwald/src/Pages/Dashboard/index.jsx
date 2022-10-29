@@ -3,17 +3,31 @@ import { Button, Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import Card from "../../Components/Card";
 import { AuthContext } from "../../Contexts/AuthContext";
-import { Main, Header, Title, Buttton, ContainerMain, Name, H3,ContainerUL } from "./style";
- import { useForm } from "react-hook-form";
+import {
+  Main,
+  Header,
+  Title,
+  Buttton,
+  ContainerMain,
+  Name,
+  H3,
+  ContainerUL,
+} from "./style";
+import { useForm } from "react-hook-form";
 
 const Dashboard = () => {
-
+  const { register, handleSubmit } = useForm();
   const {
-    register,
-    handleSubmit,
-  } = useForm();
-
-  const { name, technology, setTech,addTech} = useContext(AuthContext);
+    name,
+    setName,
+    technology,
+    setTech,
+    addTech,
+    token,
+    setToken,
+    getUser,
+  } = useContext(AuthContext);
+  const [tech, setTechnology] = useState([]);
   const navigate = useNavigate();
   const Logout = () => {
     setTimeout(() => {
@@ -35,10 +49,10 @@ const Dashboard = () => {
     setIsModalOpen(false);
   };
 
-  // useEffect(() => {
-  //   setTech();
-  // },[]);
-
+  useEffect(() => {
+    getUser();
+    console.log(tech);
+  }, []);
   return (
     <Main>
       <Header>
@@ -71,18 +85,22 @@ const Dashboard = () => {
           )}
         </ContainerUL>
       </div>
-      <Modal title="Cadastrar Tecnologia" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-
-        <form onSubmit={handleSubmit((data)=> addTech(data))}>
-            <p>Nome</p>
-            <input type="text" {...register("title")} />
-            <p>selecionar tecnologia</p>
-            <select {...register("status")} >
-              <option value="Iniciante">Iniciante</option>
-              <option value="Intermediario">Intermediario</option>
-              <option value="Avançado">Avançado</option>
-            </select>
-            <button type="submit">Cadastrar</button>
+      <Modal
+        title="Cadastrar Tecnologia"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <form onSubmit={handleSubmit((data) => addTech(data))}>
+          <p>Nome</p>
+          <input type="text" {...register("title")} />
+          <p>selecionar tecnologia</p>
+          <select {...register("status")}>
+            <option value="Iniciante">Iniciante</option>
+            <option value="Intermediario">Intermediario</option>
+            <option value="Avançado">Avançado</option>
+          </select>
+          <button type="submit">Cadastrar</button>
         </form>
       </Modal>
     </Main>
@@ -90,5 +108,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-
