@@ -1,8 +1,14 @@
 import { AuthContext } from "../../Contexts/AuthContext";
-import React, { useContext } from "react";
+import React, {useContext } from "react";
 import { TechName, TechStatus, TechList } from "./styled";
-import {BsFillTrashFill} from "react-icons/bs"
+import { BsFillTrashFill } from "react-icons/bs";
 
+// interface IcardProps {
+//   nameTechnology: 
+//   statusTechnology: 
+//   techId: 
+//   RemoveTech: 
+// }
 
 const Card = ({ nameTechnology, statusTechnology, techId }) => {
   const { RemoveTech } = useContext(AuthContext);
@@ -10,7 +16,9 @@ const Card = ({ nameTechnology, statusTechnology, techId }) => {
     <TechList>
       <TechName>{nameTechnology}</TechName>
       <TechStatus>{statusTechnology}</TechStatus>
-      <BsFillTrashFill onClick={() => RemoveTech(techId)}>Deletar</BsFillTrashFill>
+      <BsFillTrashFill onClick={() => RemoveTech(techId)}>
+        Deletar
+      </BsFillTrashFill>
     </TechList>
   );
 };

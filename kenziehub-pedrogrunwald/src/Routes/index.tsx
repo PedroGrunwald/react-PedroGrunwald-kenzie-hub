@@ -3,6 +3,7 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import Dashboard from "../Pages/Dashboard";
 
+
 const RoutesMain = () => {
   return (
     <BrowserRouter>
@@ -10,9 +11,10 @@ const RoutesMain = () => {
         <Route path="/sessions" element={<Login/>} />
         <Route path="/users" element={<Register/>} />
 
-        
+    
         <Route path="/profile" element={<Dashboard/>} />
         <Route path="*" element={<Navigate to ='/sessions'/>}/>
+     
       </Routes>
     </BrowserRouter>
   );

@@ -10,7 +10,7 @@ import {
   ButtonRegister,
   LinkLogin,
 } from "./style";
-
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -65,6 +65,7 @@ const Login = () => {
           <p>{errors.password?.message}</p>
 
           <ButtonEnter type="submit"> Entrar</ButtonEnter>
+         
         </form>
         <Paragraph>Ainda nao possui uma conta?</Paragraph>
 
