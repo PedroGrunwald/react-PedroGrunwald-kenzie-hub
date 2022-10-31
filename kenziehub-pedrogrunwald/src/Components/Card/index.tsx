@@ -3,14 +3,14 @@ import React, {useContext } from "react";
 import { TechName, TechStatus, TechList } from "./styled";
 import { BsFillTrashFill } from "react-icons/bs";
 
-// interface IcardProps {
-//   nameTechnology: 
-//   statusTechnology: 
-//   techId: 
-//   RemoveTech: 
-// }
 
-const Card = ({ nameTechnology, statusTechnology, techId }) => {
+interface CardProps {
+  nameTechnology: string;
+  statusTechnology: string;
+  techId: number;
+}
+
+const Card = ({ nameTechnology, statusTechnology, techId }: CardProps) => {
   const { RemoveTech } = useContext(AuthContext);
   return (
     <TechList>

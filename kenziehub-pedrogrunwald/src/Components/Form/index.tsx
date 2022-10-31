@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { Forms, H2, Paragraphy, Input, Select, BtnRegister } from "./style";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,14 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 
 const Form = () => {
-  const navigate = useNavigate();
   const { registerUser } = useContext(AuthContext);
-
-  const SubmitUser = () => {
-    setTimeout(() => {
-      navigate("/sessions");
-    });
-  };
 
   const schema = yup.object({
     email: yup
@@ -33,16 +25,10 @@ const Form = () => {
       ),
     name: yup.string().required("Nome é obrigatorio"),
     bio: yup.string().required("bio é obrigatoria"),
-    contact: yup.string("forma de contato").required("contato é obrigatorio"),
-    course_module: yup
-      .string("qual o modulo?")
-      .required("seleção é obrigatorio"),
+    contact: yup.string().required("contato é obrigatorio"),
+    course_module: yup.string().required("seleção é obrigatorio"),
   });
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -55,33 +41,33 @@ const Form = () => {
         placeholder="Digite aqui seu nome"
         {...register("name")}
       />
-      <p>{errors.name?.message}</p>
+
       <Input
         type="text"
         placeholder="Digite aqui seu email"
         {...register("email")}
       />
-      <p>{errors.email?.message}</p>
+
       <Input
         type="password"
         placeholder="digite aqui sua senha"
         {...register("password")}
       />
-      <p>{errors.password?.message}</p>
+
       <Input
         type="password"
         placeholder="digite novamente sua senha"
         {...register("confirmPassword")}
       />
-      <p>{errors.confirmPassword?.message}</p>
+
       <Input type="text" placeholder="fale sobre voce" {...register("bio")} />
-      <p>{errors.bio?.message}</p>
+
       <Input
         type="text"
         placeholder="opçao de contato"
         {...register("contact")}
       />
-      <p>{errors.contact?.message}</p>
+
       <Select {...register("course_module")}>
         <option value="">Selecionar</option>
         <option value="Primeiro módulo (Introdução ao Frontend)">
@@ -97,10 +83,8 @@ const Form = () => {
           "Quarto módulo (Backend Avançado)"
         </option>
       </Select>
-      <p>{errors.course_module?.message}</p>
-      <BtnRegister type="submit">
-        Cadastrar
-      </BtnRegister>
+
+      <BtnRegister type="submit">Cadastrar</BtnRegister>
     </Forms>
   );
 };
