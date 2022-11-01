@@ -10,26 +10,24 @@ import {
   ButtonRegister,
   LinkLogin,
 } from "./style";
-import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import image from "../../Assets/LogoHub.svg";
 import { useContext } from "react";
-import { AuthContext } from "../../Contexts/AuthContext";
+
+import React from "react";
+import { UserContext } from "../../Contexts/UserContext";
+
+interface IloginForm {
+  email: string;
+  password: string;
+}
 
 const Login = () => {
-  const { submitUser } = useContext(AuthContext);
+  const { submitUser } = useContext(UserContext);
+
   const navigate = useNavigate();
-  function loginUser(data) {
-    try {
-      submitUser(data);
-      setTimeout(() => {
-        
-        navigate("/profile");
-      }, 1000);
-    } catch (error) {}
-  }
 
   const schema = yup.object({
     email: yup
@@ -43,7 +41,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<IloginForm>({
     resolver: yupResolver(schema),
   });
 
@@ -54,18 +52,17 @@ const Login = () => {
       </div>
       <DivMain>
         <H4>Login</H4>
-        <form onSubmit={handleSubmit(loginUser)}>
+        <form onSubmit={handleSubmit(submitUser)}>
           <Input type="text" placeholder="Email" {...register("email")} />
-          <p>{errors.email?.message}</p>
+          <p>{errors?.email?.message}</p>
           <Input
             type="password"
             placeholder="senha"
             {...register("password")}
           />
-          <p>{errors.password?.message}</p>
+          <p>{errors?.password?.message}</p>
 
           <ButtonEnter type="submit"> Entrar</ButtonEnter>
-         
         </form>
         <Paragraph>Ainda nao possui uma conta?</Paragraph>
 

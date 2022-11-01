@@ -1,12 +1,10 @@
 import Routes from "./Routes";
-import AuthProvider from "./Contexts/AuthContext";
-import 'antd/dist/antd.css';
+import "antd/dist/antd.css";
+import React from "react";
 const App = () => {
   return (
     <>
-      <AuthProvider>
-        <Routes />  
-      </AuthProvider>
+      <Routes />
     </>
   );
 };

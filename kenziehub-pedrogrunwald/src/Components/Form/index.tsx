@@ -3,10 +3,20 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useContext } from "react";
-import { AuthContext } from "../../Contexts/AuthContext";
+import { UserContext } from "../../Contexts/UserContext";
+
+interface IuseForm {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  name: string;
+  bio: string;
+  contact: string;
+  course_module: string;
+}
 
 const Form = () => {
-  const { registerUser } = useContext(AuthContext);
+  const { registerUser } = useContext(UserContext);
 
   const schema = yup.object({
     email: yup
@@ -28,7 +38,7 @@ const Form = () => {
     contact: yup.string().required("contato é obrigatorio"),
     course_module: yup.string().required("seleção é obrigatorio"),
   });
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit } = useForm<IuseForm>({
     resolver: yupResolver(schema),
   });
 

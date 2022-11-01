@@ -1,13 +1,12 @@
 import { AuthContext } from "../../Contexts/AuthContext";
-import React, {useContext } from "react";
+import React, { useContext } from "react";
 import { TechName, TechStatus, TechList } from "./styled";
 import { BsFillTrashFill } from "react-icons/bs";
-
 
 interface CardProps {
   nameTechnology: string;
   statusTechnology: string;
-  techId: number;
+  techId: number | string;
 }
 
 const Card = ({ nameTechnology, statusTechnology, techId }: CardProps) => {

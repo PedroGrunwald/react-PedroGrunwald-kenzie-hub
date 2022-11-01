@@ -3,6 +3,7 @@ import { Button, Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import Card from "../../Components/Card";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { UserContext } from "../../Contexts/UserContext";
 import {
   Main,
   Header,
@@ -12,21 +13,21 @@ import {
   Name,
   H3,
   ContainerUL,
+  StyledModal,
+  StyledForm,
+  StyledP,
+  StyledButton,
 } from "./style";
 import { useForm } from "react-hook-form";
 
 const Dashboard = () => {
   const { register, handleSubmit } = useForm();
-  const {
-    name,
-    setName,
-    technology,
-    setTech,
-    addTech,
-    token,
-    setToken,
-    getUser,
-  } = useContext(AuthContext);
+  const { name, token, setToken } = useContext(UserContext);
+
+  const { setTech, addTech } = useContext(AuthContext);
+
+  const { setName, technology, getUser } = useContext(UserContext);
+
   const [tech, setTechnology] = useState([]);
   const navigate = useNavigate();
   const Logout = () => {
@@ -85,24 +86,26 @@ const Dashboard = () => {
           )}
         </ContainerUL>
       </div>
-      <Modal
+      <StyledModal
         title="Cadastrar Tecnologia"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={null}
+        width="350px"
       >
-        <form onSubmit={handleSubmit((data) => addTech(data))}>
-          <p>Nome</p>
+        <StyledForm onSubmit={handleSubmit((data) => addTech(data))}>
+          <StyledP>Nome</StyledP>
           <input type="text" {...register("title")} />
-          <p>selecionar tecnologia</p>
+          <StyledP>selecionar tecnologia</StyledP>
           <select {...register("status")}>
             <option value="Iniciante">Iniciante</option>
             <option value="Intermediario">Intermediario</option>
             <option value="Avançado">Avançado</option>
           </select>
-          <button type="submit">Cadastrar</button>
-        </form>
-      </Modal>
+          <StyledButton type="submit">Cadastrar Tecnologia</StyledButton>
+        </StyledForm>
+      </StyledModal>
     </Main>
   );
 };

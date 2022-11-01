@@ -25,7 +25,6 @@ export const Title = styled.img`
 `;
 
 export const ContainerLink = styled.div`
-
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
@@ -34,10 +33,10 @@ export const ContainerLink = styled.div`
   text-align: center;
   color: #f8f9fa;
   background-color: gray;
-border-radius: 5px;
+  border-radius: 5px;
 `;
 
 export const LinkVoltar = styled(Link)`
-text-decoration: none;
-color: black;
-`
+  text-decoration: none;
+  color: black;
+`;
