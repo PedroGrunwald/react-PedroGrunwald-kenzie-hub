@@ -17,7 +17,7 @@ import {
   StyledButton,
   StyledDiv,
   LinkOut,
-  StyledDivUl
+  StyledDivUl,
 } from "./style";
 import { useForm } from "react-hook-form";
 import imagem from "../../Assets/+.svg";

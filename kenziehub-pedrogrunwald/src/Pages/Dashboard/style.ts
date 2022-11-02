@@ -36,6 +36,7 @@ export const LinkOut = styled(Link)`
   color: #f8f9fa;
   background: #212529;
   border-radius: 4px;
+  margin-right: 2rem;
 `;
 export const ContainerMain = styled.div`
   display: flex;
@@ -101,7 +102,7 @@ export const StyledModal = styled(Modal)`
     border-radius: 4px 4px 0px 0px;
   }
 
-  .ant-btn.ant-btn-primary {
+  #Button .ant-btn .ant-btn-primary {
     background: #212529;
     border-radius: 4px;
     border: none;
