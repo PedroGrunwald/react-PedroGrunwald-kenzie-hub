@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Modal } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Button } from "antd";
 import Card from "../../Components/Card";
-import { AuthContext } from "../../Contexts/AuthContext";
+import { AuthContext } from "../../Contexts/TechContext";
 import { UserContext } from "../../Contexts/UserContext";
 import {
   Main,
   Header,
   Title,
-  Buttton,
   ContainerMain,
   Name,
   H3,
@@ -17,24 +15,23 @@ import {
   StyledForm,
   StyledP,
   StyledButton,
+  StyledDiv,
+  LinkOut,
+  StyledDivUl
 } from "./style";
 import { useForm } from "react-hook-form";
-
+import imagem from "../../Assets/+.svg";
 const Dashboard = () => {
   const { register, handleSubmit } = useForm();
-  const { name, token, setToken } = useContext(UserContext);
+  const { name } = useContext(UserContext);
 
-  const { setTech, addTech } = useContext(AuthContext);
+  const { addTech, technology } = useContext(AuthContext);
 
-  const { setName, technology, getUser } = useContext(UserContext);
+  const { getUser, getInfoUser } = useContext(UserContext);
 
-  const [tech, setTechnology] = useState([]);
-  const navigate = useNavigate();
-  const Logout = () => {
-    setTimeout(() => {
-      navigate("/sessions");
-    });
-  };
+  useEffect(() => {
+    getInfoUser();
+  }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -52,21 +49,23 @@ const Dashboard = () => {
 
   useEffect(() => {
     getUser();
-    console.log(tech);
   }, []);
   return (
     <Main>
       <Header>
         <Title>Kenzie hub</Title>
-        <Button type="primary" onClick={showModal}>
-          Open Modal
-        </Button>
-        <Buttton onClick={() => Logout()}>Sair</Buttton>
+        <LinkOut to={"/sessions"}> Sair </LinkOut>
       </Header>
       <ContainerMain>
-        <Name>ola {name} </Name>
+        <Name>Ola,{name} </Name>
       </ContainerMain>
-      <div>
+      <StyledDiv>
+        <H3>Tecnologias</H3>
+        <Button type="primary" onClick={showModal}>
+          <img src={imagem} alt="adicionar tecnologia" />
+        </Button>
+      </StyledDiv>
+      <StyledDivUl>
         <ContainerUL>
           {technology.length ? (
             technology.map((technology, index) => {
@@ -80,12 +79,10 @@ const Dashboard = () => {
               );
             })
           ) : (
-            <>
-              <H3>Tecnologias</H3>
-            </>
+            <></>
           )}
         </ContainerUL>
-      </div>
+      </StyledDivUl>
       <StyledModal
         title="Cadastrar Tecnologia"
         open={isModalOpen}
@@ -94,7 +91,7 @@ const Dashboard = () => {
         footer={null}
         width="350px"
       >
-        <StyledForm onSubmit={handleSubmit((data) => addTech(data))}>
+        <StyledForm onSubmit={handleSubmit(addTech)}>
           <StyledP>Nome</StyledP>
           <input type="text" {...register("title")} />
           <StyledP>selecionar tecnologia</StyledP>

@@ -8,9 +8,8 @@ import {
   Dispatch,
 } from "react";
 import Api from "../Services/api";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { ITech } from "../Contexts/UserContext";
 import { AxiosError } from "axios";
+
 interface AuthContextInterface {
   token: string;
   setToken: Dispatch<SetStateAction<string>>;
@@ -19,6 +18,8 @@ interface AuthContextInterface {
   setTech: Dispatch<SetStateAction<string>>;
   addTech: (data: any) => void;
   RemoveTech: (data: number | string) => void;
+  technology: ITechAdd[];
+  setTechnology: Dispatch<SetStateAction<ITechAdd[]>>;
 }
 
 export const AuthContext = createContext<AuthContextInterface>(
@@ -29,27 +30,10 @@ interface Props {
   children?: ReactNode;
 }
 
-interface UserProps {
-  avatar_url: string;
-  bio: string;
-  contact: number;
-  course_module: string;
-  created_at: number;
-  email: string;
-  id: number;
-  name: string;
-  title: string;
-  status: string;
-}
-
 interface ITechAdd {
   title: string;
   status: string;
-}
-
-interface ItechResponse {
-  status: string;
-  message: string;
+  id: string;
 }
 
 export interface IAxios {
@@ -58,10 +42,8 @@ export interface IAxios {
 }
 
 const AuthProvider = ({ children }: Props) => {
-  const navigate = useNavigate();
-
   const [name, setName] = useState<string>("");
-  const [technology, setTechnology] = useState<ITech[]>([]);
+  const [technology, setTechnology] = useState<ITechAdd[]>([]);
   const [token, setToken] = useState<string>("");
   const [isDelete, setDelete] = useState<boolean>(false);
 
@@ -69,11 +51,10 @@ const AuthProvider = ({ children }: Props) => {
     return;
   }
 
-  async function addTech(data: ITechAdd) {
+  async function addTech(dataF: ITechAdd) {
     try {
-      const response = await Api.post<ITech>("/users/techs", data);
-      setTechnology((old) => [...old, response.data]);
-      console.log(response);
+      const { data } = await Api.post<ITechAdd>("/users/techs", dataF);
+      setTechnology([...technology, data]);
     } catch (error) {
       const axiosError = error as AxiosError<IAxios>;
       console.log(axiosError);
@@ -105,6 +86,8 @@ const AuthProvider = ({ children }: Props) => {
         setTech,
         addTech,
         RemoveTech,
+        technology,
+        setTechnology,
       }}
     >
       {children}

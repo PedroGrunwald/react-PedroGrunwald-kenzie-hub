@@ -2,7 +2,6 @@ import React from "react";
 import Form from "../../Components/Form";
 import image from "../../Assets/LogoHub.svg";
 import { Main, Container, Title, ContainerLink, LinkVoltar } from "./style";
-import { Link } from "react-router-dom";
 
 const Register = () => {
   return (

@@ -1,4 +1,3 @@
-import { Link, useNavigate } from "react-router-dom";
 import {
   Main,
   Image,
@@ -15,7 +14,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import image from "../../Assets/LogoHub.svg";
 import { useContext } from "react";
-
 import React from "react";
 import { UserContext } from "../../Contexts/UserContext";
 
@@ -26,8 +24,6 @@ interface IloginForm {
 
 const Login = () => {
   const { submitUser } = useContext(UserContext);
-
-  const navigate = useNavigate();
 
   const schema = yup.object({
     email: yup

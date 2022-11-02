@@ -1,9 +1,10 @@
 import { Modal } from "antd";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Main = styled.main`
   width: 100vw;
-  height: 100vh;
+  height: 120vh;
   background: #121214;
 `;
 export const Header = styled.header`
@@ -17,7 +18,7 @@ export const Title = styled.h1`
   color: #ff577f;
 `;
 
-export const Buttton = styled.button`
+export const LinkOut = styled(Link)`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -36,7 +37,6 @@ export const Buttton = styled.button`
   background: #212529;
   border-radius: 4px;
 `;
-
 export const ContainerMain = styled.div`
   display: flex;
   flex-direction: row;
@@ -54,6 +54,7 @@ export const Name = styled.h1`
   font-size: 18px;
   line-height: 28px;
   color: #f8f9fa;
+  margin-left: 4rem;
 `;
 
 export const H3 = styled.h3`
@@ -65,7 +66,12 @@ export const H3 = styled.h3`
   line-height: 18px;
 `;
 
+export const StyledDivUl = styled.div`
+   background: #121214;
+`
+
 export const ContainerUL = styled.ul`
+
   display: flex;
   flex-direction: column;
   background-color: #212529;
@@ -94,6 +100,12 @@ export const StyledModal = styled(Modal)`
     background: #343b41;
     border-radius: 4px 4px 0px 0px;
   }
+
+  .ant-btn.ant-btn-primary {
+    background: #212529;
+    border-radius: 4px;
+    border: none;
+  }
 `;
 
 export const StyledForm = styled.form`
@@ -119,4 +131,13 @@ export const StyledButton = styled.button`
   background: #ff577f;
   border: 1.2182px solid #ff577f;
   border-radius: 5px;
+`;
+
+export const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 6rem;
+  margin-right: 6rem;
+  margin-top: 1rem;
 `;

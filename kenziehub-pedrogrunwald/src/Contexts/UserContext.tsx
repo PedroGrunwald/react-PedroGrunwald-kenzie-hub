@@ -4,22 +4,23 @@ import {
   ReactNode,
   SetStateAction,
   Dispatch,
+  useEffect,
+  useContext,
 } from "react";
 import Api from "../Services/api";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
-import { IAxios } from "./AuthContext";
+import { AuthContext, IAxios } from "./TechContext";
 
 interface UserContextInterface {
   name: string;
   setName: Dispatch<SetStateAction<string>>;
   token: string;
   setToken: Dispatch<SetStateAction<string>>;
-  technology: ITech[];
-  setTechnology: Dispatch<SetStateAction<ITech[]>>;
-  submitUser: (data: any) => void;
-  registerUser: (data: any) => void;
+  submitUser: (data: Ilogin) => void;
+  registerUser: (data: IUserRegister) => void;
   getUser: () => void;
+  getInfoUser: () => void;
 }
 
 export interface ITech {
@@ -55,10 +56,10 @@ interface IUserRegister {
 
 interface Ilogin {
   email: string;
-  password: number;
+  password: string;
 }
 
-interface Iget {
+export interface Iget {
   id: string;
   name: string;
   email: string;
@@ -69,7 +70,7 @@ interface Iget {
 }
 
 interface IloginResponse {
-  user: Iget;
+  user: UserProps;
   token: string;
 }
 
@@ -82,26 +83,61 @@ interface Props {
 }
 
 const UserProvider = ({ children }: Props) => {
+  const { setTechnology } = useContext(AuthContext);
   const navigate = useNavigate();
   const [name, setName] = useState<string>("");
   const [token, setToken] = useState<string>("");
-  const [technology, setTechnology] = useState<any[]>([]);
+  const [user, setUser] = useState<UserProps>({} as UserProps);
+
+  useEffect(() => {
+    async function loadUser() {
+      const token = localStorage.getItem("@Kenzie:token");
+
+      if (token) {
+        try {
+          Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+          const { data } = await Api.get("/profile");
+          setUser(data);
+          setTechnology(data.techs);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+    loadUser();
+  }, []);
 
   async function submitUser(data: Ilogin) {
     try {
       const response = await Api.post<IloginResponse>("/sessions ", data);
+      const { user: userResponse, token } = response.data;
+      Api.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
 
-      localStorage.setItem("@Kenzie:token", response.data.token);
+      setUser(userResponse);
+
+      localStorage.setItem("@Kenzie:token", token);
+      localStorage.setItem("@Kenzie:userId", response.data.user.id);
+
       console.log(response);
       setName(response.data.user.name);
       setToken(response.data.token);
-      Api.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
 
       navigate("/profile");
       return;
     } catch (error) {
       const axiosError = error as AxiosError<IAxios>;
       console.log(axiosError);
+    }
+  }
+
+  async function getInfoUser() {
+    try {
+      const id = localStorage.getItem("@Kenzie:userId");
+      const response = await Api.get(`/users/${id}`);
+      setUser(response.data);
+      setTechnology(response.data.techs);
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -136,11 +172,10 @@ const UserProvider = ({ children }: Props) => {
         setName,
         token,
         setToken,
-        technology,
-        setTechnology,
         submitUser,
         registerUser,
         getUser,
+        getInfoUser,
       }}
     >
       {children}

@@ -38,7 +38,11 @@ const Form = () => {
     contact: yup.string().required("contato é obrigatorio"),
     course_module: yup.string().required("seleção é obrigatorio"),
   });
-  const { register, handleSubmit } = useForm<IuseForm>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IuseForm>({
     resolver: yupResolver(schema),
   });
 
@@ -51,33 +55,33 @@ const Form = () => {
         placeholder="Digite aqui seu nome"
         {...register("name")}
       />
-
+      <p>{errors?.name?.message}</p>
       <Input
         type="text"
         placeholder="Digite aqui seu email"
         {...register("email")}
       />
-
+      <p>{errors?.email?.message}</p>
       <Input
         type="password"
         placeholder="digite aqui sua senha"
         {...register("password")}
       />
-
+      <p>{errors?.password?.message}</p>
       <Input
         type="password"
         placeholder="digite novamente sua senha"
         {...register("confirmPassword")}
       />
-
+      <p>{errors?.confirmPassword?.message}</p>
       <Input type="text" placeholder="fale sobre voce" {...register("bio")} />
-
+      <p>{errors?.bio?.message}</p>
       <Input
         type="text"
         placeholder="opçao de contato"
         {...register("contact")}
       />
-
+      <p>{errors?.contact?.message}</p>
       <Select {...register("course_module")}>
         <option value="">Selecionar</option>
         <option value="Primeiro módulo (Introdução ao Frontend)">
@@ -93,7 +97,7 @@ const Form = () => {
           "Quarto módulo (Backend Avançado)"
         </option>
       </Select>
-
+      <p>{errors?.course_module?.message}</p>
       <BtnRegister type="submit">Cadastrar</BtnRegister>
     </Forms>
   );
